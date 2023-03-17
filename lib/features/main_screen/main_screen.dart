@@ -14,8 +14,10 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<Recipe> _data = data;
+
   void _searchData(String name) {
-    _data = data.where((data) => data.name.toLowerCase() == name).toList();
+    _data =
+        data.where((data) => data.name.toLowerCase().contains(name)).toList();
     setState(() {});
   }
 
@@ -70,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  data[index].name,
+                                  _data[index].name,
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,

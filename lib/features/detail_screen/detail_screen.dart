@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dicoding_final1/features/detail_screen/widgets/app_bar_detail.dart';
+import 'package:dicoding_final1/features/detail_screen/widgets/food_detail.dart';
 import 'package:dicoding_final1/models/recipe.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +16,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz)),
-            ],
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.black,
-            pinned: true,
-          ),
+          appBarDetail(),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -78,6 +72,7 @@ class DetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
                         imageUrl: resep.imageUrl,
+                        width: double.infinity,
                         height: 250,
                         fit: BoxFit.cover,
                         placeholder: (context, url) =>
@@ -91,75 +86,7 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              height: 80,
-              decoration: BoxDecoration(
-                color: primary.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.grass,
-                        color: Colors.red,
-                        size: 30,
-                      ),
-                      Text(
-                        resep.kcalories.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'Calories',
-                        style: TextStyle(fontSize: 12),
-                      )
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.timer,
-                        color: Colors.blue,
-                        size: 30,
-                      ),
-                      Text(
-                        resep.duration.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'Duration',
-                        style: TextStyle(fontSize: 12),
-                      )
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.face_unlock_outlined,
-                        color: primary,
-                        size: 30,
-                      ),
-                      Text(
-                        resep.kcalories.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'Calories',
-                        style: TextStyle(fontSize: 12),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+          foodDetail(primary, resep),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40)
