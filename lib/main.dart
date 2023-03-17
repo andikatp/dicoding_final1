@@ -12,10 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.orange,
-          colorScheme: ThemeData().colorScheme.copyWith(
-                primary: Colors.orange,
-              )),
+        primaryColor: Colors.orange,
+        colorScheme: ThemeData().colorScheme.copyWith(
+              primary: Colors.orange,
+            ),
+      ),
       routes: {'/': (context) => const MainScreen()},
     );
   }
