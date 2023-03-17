@@ -7,15 +7,16 @@ class Recipe {
   final int duration;
   final int kcalories;
   final int servings;
+  bool isFavorite;
 
-  Recipe({
-    required this.imageUrl,
-    required this.name,
-    required this.createdBy,
-    required this.ingredients,
-    required this.steps,
-    required this.duration,
-    required this.kcalories,
-    required this.servings,
-  });
+  Recipe(
+      {required this.imageUrl,
+      required this.name,
+      required this.createdBy,
+      required this.ingredients,
+      required this.steps,
+      required this.duration,
+      required this.kcalories,
+      required this.servings,
+      this.isFavorite = false});
 }

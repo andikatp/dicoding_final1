@@ -23,6 +23,7 @@ List<Recipe> data = [
     duration: 30,
     kcalories: 500,
     servings: 4,
+    isFavorite: false,
   ),
   Recipe(
     imageUrl:
@@ -46,6 +47,7 @@ List<Recipe> data = [
     duration: 45,
     kcalories: 600,
     servings: 4,
+    isFavorite: false,
   ),
   Recipe(
     imageUrl:

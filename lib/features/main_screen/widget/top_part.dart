@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container topPart(BuildContext context) {
+Container topPart(BuildContext context, void Function(String nama) searchData) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 70)
         .copyWith(bottom: 20),
@@ -19,7 +19,10 @@ Container topPart(BuildContext context) {
         const SizedBox(height: 30),
         TextField(
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onChanged: (value) => searchData(value.toLowerCase()),
           decoration: InputDecoration(
+            fillColor: const Color(0xFFF1F1F1),
+            filled: true,
             contentPadding: EdgeInsets.zero,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
