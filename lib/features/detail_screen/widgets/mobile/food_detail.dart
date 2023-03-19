@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/recipe.dart';
+import '../../../../models/recipe.dart';
 
-SliverToBoxAdapter foodDetail(Color primary, Recipe resep) {
+SliverToBoxAdapter foodDetail(BuildContext context, Recipe resep) {
   return SliverToBoxAdapter(
     child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       height: 80,
       decoration: BoxDecoration(
-        color: primary.withOpacity(0.4),
+        color: Theme.of(context).primaryColor.withOpacity(0.4),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -55,15 +55,15 @@ SliverToBoxAdapter foodDetail(Color primary, Recipe resep) {
             children: [
               Icon(
                 Icons.face_unlock_outlined,
-                color: primary,
+                color: Theme.of(context).primaryColor,
                 size: 30,
               ),
               Text(
-                resep.kcalories.toString(),
+                resep.servings.toString(),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const Text(
-                'Calories',
+                'Servings',
                 style: TextStyle(fontSize: 12),
               )
             ],

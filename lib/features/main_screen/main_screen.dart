@@ -1,8 +1,7 @@
-import 'package:bordered_text/bordered_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicoding_final1/constants/data.dart';
-import 'package:dicoding_final1/features/detail_screen/detail_screen.dart';
-import 'package:dicoding_final1/features/main_screen/widget/top_part.dart';
+import 'package:dicoding_final1/features/main_screen/widget/mobile/list_mobile.dart';
+import 'package:dicoding_final1/features/main_screen/widget/web/list_web.dart';
+import 'package:dicoding_final1/widgets/top_part.dart';
 import 'package:dicoding_final1/models/recipe.dart';
 import 'package:flutter/material.dart';
 
@@ -27,205 +26,22 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: topPart(context, _searchData),
-          ),
+          topPart(context, _searchData),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             sliver: SliverLayoutBuilder(
               builder: (context, constraint) {
                 if (constraint.crossAxisExtent <= 700) {
-                  return listMobile();
+                  return ListMobile(_data);
                 } else if (constraint.crossAxisExtent <= 1200) {
-                  return listWeb(3);
+                  return listWeb(3, _data);
                 } else {
-                  return listWeb(6);
+                  return listWeb(6, _data);
                 }
               },
             ),
-          )
+          ),
         ],
-      ),
-    );
-  }
-
-  SliverGrid listWeb(int axis) {
-    return SliverGrid.builder(
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: axis),
-      itemCount: _data.length,
-      itemBuilder: (context, index) => Container(
-        margin: const EdgeInsets.all(20),
-        height: 100,
-        width: 100,
-        child: GestureDetector(
-          onTap: () => Navigator.pushNamed(context, DetailScreen.routeName,
-              arguments: _data[index]),
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Hero(
-                  tag: _data[index].name,
-                  child: CachedNetworkImage(
-                    imageUrl: _data[index].imageUrl,
-                    height: double.infinity,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const Center(child: Icon(Icons.error)),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    colors: [
-                      const Color.fromARGB(255, 255, 164, 103).withOpacity(0.5),
-                      Colors.transparent
-                    ],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                  ),
-                ),
-              ),
-              Positioned(
-                  bottom: 20,
-                  left: 10,
-                  child: BorderedText(
-                    strokeColor: Colors.black,
-                    strokeWidth: 2,
-                    child: Text(
-                      _data[index].name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
-                    ),
-                  ))
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  SliverList listMobile() {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        childCount: _data.length,
-        (context, index) => GestureDetector(
-          onTap: () => Navigator.pushNamed(context, DetailScreen.routeName,
-              arguments: _data[index]),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            elevation: 3,
-            child: Container(
-              height: 100,
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Hero(
-                    tag: data[index].name,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: CachedNetworkImage(
-                        height: 100,
-                        width: 80,
-                        imageUrl: data[index].imageUrl,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) =>
-                            const Center(child: Icon(Icons.error)),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            _data[index].name,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  'images/fire.png',
-                                  color: Colors.black45,
-                                  height: 12,
-                                  width: 12,
-                                ),
-                                const SizedBox(width: 3),
-                                Text(
-                                  '${data[index].kcalories} Kcal',
-                                  style: const TextStyle(
-                                      color: Colors.black45, fontSize: 12),
-                                )
-                              ],
-                            ),
-                            const SizedBox(width: 5),
-                            Container(
-                              height: 3,
-                              width: 3,
-                              decoration: BoxDecoration(
-                                  color: Colors.black45,
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
-                            const SizedBox(width: 5),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.schedule,
-                                  color: Colors.black45,
-                                  size: 12,
-                                ),
-                                const SizedBox(width: 3),
-                                Text(
-                                  '${data[index].kcalories} Kcal',
-                                  style: const TextStyle(
-                                      color: Colors.black45, fontSize: 12),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => setState(
-                        () => data[index].isFavorite = !data[index].isFavorite),
-                    icon: Icon(
-                      data[index].isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_outline,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

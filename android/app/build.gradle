@@ -60,6 +60,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    ndkVersion "25.2.9519653"
 }
 
 flutter {
